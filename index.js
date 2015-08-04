@@ -11,11 +11,11 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
 app.get('/', function(request, response) {
-  var result = ''
-  var times = process.env.TIMES || 5
-  for ( i=0 ; i<times ; i++)
-	  result +=cool();
-  response.send(result);
+	response.writeHead(200 ,{"Content-Type": "text/plain"});
+	response.write("Hello World");
+	response.end();
+  
+  //response.send(result);
 });
 
 app.get('/cool', function(request,response){
