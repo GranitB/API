@@ -1,7 +1,18 @@
 var cool = require('cool-ascii-faces');
 var express = require('express');
 var app = express();
-
+var pg = require('pg');
+app.get('/db', function (request, response) {
+  pg.connect(process.env.postgres://ofvmbmpwhvyobm:v1624wbf2YqZJkhYnYDyHFYB0_@ec2-204-236-226-63.compute-1.amazonaws.com:5432/d9nhbiuu1q3bce, function(err, client, done) {
+    client.query('SELECT * FROM test_table', function(err, result) {
+      done();
+      if (err)
+       { console.error(err); response.send("Error " + err); }
+      else
+       { response.render('pages/db', {results: result.rows} ); }
+    });
+  });
+})
 
 app.set('port', (process.env.PORT || 5000));
 
