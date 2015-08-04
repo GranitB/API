@@ -15,8 +15,7 @@ app.set('view engine', 'ejs');
 
 app.get('/', function(request, response) {
 	response.writeHead(200 ,{"Content-Type": "text/plain"});
-	response.write("<h1>Hello World</h1>");
-	response.render(index);
+	response.write("Hello World");
 	response.end();
   
   //response.send(result);
