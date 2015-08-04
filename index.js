@@ -15,6 +15,7 @@ app.set('view engine', 'ejs');
 
 app.get('/', function(request, response) {
 	response.send("<h1><center>Hello World</center></h1>");
+	response.send("<center><h2>Welcome to HotelKeyAPP with our team NodeJS"</center></h2>);
 	response.end();
   
   //response.send(result);
