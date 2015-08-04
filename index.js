@@ -1,6 +1,9 @@
 var cool = require('cool-ascii-faces');
 var express = require('express');
 var app = express();
+var http = require("http");
+include page.html
+
 
 app.set('port', (process.env.PORT || 5000));
 
@@ -11,8 +14,9 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
 app.get('/', function(request, response) {
-	response.writeHead(200 ,{"Content-Type": "text/plain"});
-	response.write("<h1>Hello World</h1>");
+	//response.writeHead(200 ,{"Content-Type": "text/plain"});
+	//response.write("<h1>Hello World</h1>");
+	response.render(page);
 	response.end();
   
   //response.send(result);
