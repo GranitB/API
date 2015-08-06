@@ -7,7 +7,7 @@ var pg = require('pg');
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json({ type: 'application/json' }));
-app.use(express.bodyParser());
+//app.use(express.bodyParser());
 
 var apiRoutes = express.Router();
 
