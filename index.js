@@ -76,7 +76,7 @@ apiRoutes.get('/db3', function(request, response){
 		});
 	});
 });
-/*}
+
 apiRoutes.put('/db3/:id', function(req, res) {
 
     var results = [];
@@ -85,13 +85,13 @@ apiRoutes.put('/db3/:id', function(req, res) {
     var id = req.params.id;
 
     // Grab data from http request
-    var data = {text: req.body.firstname};
+    var data = {firstname: req.body.firstname};
 
     // Get a Postgres client from the connection pool
     pg.connect(process.env.DATABASE_URL, function(err, client, done) {
 
         // SQL Query > Update Data
-        client.query("UPDATE "Contact" SET firstname=($1) WHERE id=($2)", [data.text, id]);
+        client.query("UPDATE "Contact" SET firstname=($1) WHERE id=($2)", [data.firstname, id]);
 
         // SQL Query > Select Data
         var query = client.query("SELECT * FROM "Contact" ORDER BY id ASC");
@@ -154,6 +154,7 @@ app.get('/db1/:id', function (request, response) {
 	});
 });
 */
+
 
 app.get('/hello', function(request, response) {
 	response.send('<h2>Hello World!!</h2>');
