@@ -78,11 +78,12 @@ apiRoutes.get('/db3', function(request, response){
 	});
 });
 
-apiRoutes.put('/db3/:id', function(req, res) {
+apiRoutes.put('/db3/:id', function(req, res) {}
 
-    var results = [];
-	}
 /*
+    var results = [];
+	
+
     // Grab data from the URL parameters
     var id = req.params.id;
 	
