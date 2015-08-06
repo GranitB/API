@@ -63,7 +63,7 @@ app.set('view engine', 'ejs');
 //WHERE $1 = Contact.id;', [request.params.id]
 
 //test for CRUD Json
-apiRoutes.get('/db3/:id', function(request, response){
+apiRoutes.get('/db3', function(request, response){
 	pg.connect(process.env.DATABASE_URL, function(err, client, done) {
 		client.query('SELECT * FROM Contact ', function(err, result) {
 			done();
