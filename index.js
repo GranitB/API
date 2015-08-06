@@ -84,6 +84,7 @@ apiRoutes.put('/db3/:id', function(req, res) {
 
     // Grab data from the URL parameters
     var id = req.params.id;
+	}
 /* 
     // Grab data from http request
     var data = {firstname: req.body.firstname};
