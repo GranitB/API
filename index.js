@@ -7,6 +7,7 @@ var pg = require('pg');
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json({ type: 'application/json' }));
+app.use(express.bodyParser());
 
 var apiRoutes = express.Router();
 
@@ -89,7 +90,7 @@ apiRoutes.put('/db3/:id', function(req, res) {
 
     // Get a Postgres client from the connection pool
     pg.connect(process.env.DATABASE_URL, function(err, client, done) {
-
+/*
         // SQL Query > Update Data
         client.query("UPDATE "Contact" SET firstname=($1) WHERE id=($2)", [data.firstname, id]);
 
@@ -116,45 +117,7 @@ apiRoutes.put('/db3/:id', function(req, res) {
 
 });
 
-
-
-
-
-
-
-
-
-
-
-/*
-app.get('/db', function (request, response) {
-  
-  pg.connect(process.env.DATABASE_URL, function(err, client, done) {
-		client.query('SELECT * FROM test2 ;', , function(err, result) {
-      done();
-      if (err)
-       { console.error(err); response.send("Error " + err); }
-      else
-       { response.json('pages/db', {results: result.rows} ); }
-    });
-  });
-  
-});
-
-
-app.get('/db1/:id', function (request, response) {
-	 pg.connect(process.env.DATABASE_URL, function(err, client, done) {
-		client.query('SELECT * FROM test2 WHERE $1 = test2.id;', [request.params.id], function(err, result) {
-		  done();
-		  if (err)
-		   { console.error(err); response.send("Error " + err); }
-		  else
-		   { response.render('pages/db', {results: result.rows} ); }
-		});
-	});
-});
 */
-
 
 app.get('/hello', function(request, response) {
 	response.send('<h2>Hello World!!</h2>');
