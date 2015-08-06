@@ -81,7 +81,7 @@ apiRoutes.get('/db3', function(request, response){
 apiRoutes.put('/db3/:id', function(req, res) {
 
     var results = [];
-
+/*
     // Grab data from the URL parameters
     var id = req.params.id;
 
@@ -90,7 +90,7 @@ apiRoutes.put('/db3/:id', function(req, res) {
 
     // Get a Postgres client from the connection pool
     pg.connect(process.env.DATABASE_URL, function(err, client, done) {
-/*
+
         // SQL Query > Update Data
         client.query("UPDATE "Contact" SET firstname=($1) WHERE id=($2)", [data.firstname, id]);
 
