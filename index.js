@@ -77,7 +77,7 @@ apiRoutes.get('/db3', function(request, response){
 		});
 	});
 });
-/*
+
 apiRoutes.put('/db3/:id', function(req, res) {
 
     var results = [];
