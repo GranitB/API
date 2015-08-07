@@ -48,6 +48,9 @@ contactRouter.get('/id', lookupPhoto, function(req, res){
 	res.json(req.contact);
 })
 */
+
+
+
 apiRoutes.get('/', function(req, res){
   res.json({message: 'Hello World' });
 });
@@ -78,47 +81,22 @@ apiRoutes.get('/db3', function(request, response){
 	});
 });
 
-//apiRoutes.put('/db3/:id', function(req, res) {}
 
-/*
-    var results = [];
-	
-
-    // Grab data from the URL parameters
-    var id = req.params.id;
-	
- 
-    // Grab data from http request
-    var data = {firstname: req.body.firstname};
-
-    // Get a Postgres client from the connection pool
-    pg.connect(process.env.DATABASE_URL, function(err, client, done) {
-
-        // SQL Query > Update Data
-        client.query("UPDATE "Contact" SET firstname=($1) WHERE id=($2)", [data.firstname, id]);
-
-        // SQL Query > Select Data
-        var query = client.query("SELECT * FROM "Contact" ORDER BY id ASC");
-
-        // Stream results back one row at a time
-        query.on('row', function(row) {
-            results.push(row);
-        });
-
-        // After all data is returned, close connection and return results
-        query.on('end', function() {
-            client.end();
-            return res.json(results);
-        });
-
-        // Handle Errors
-        if(err) {
-          console.log(err);
-        }
-
+apiRoutes.put('/db/:id', function(request, response){
+  pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+    client.query('SELECT * FROM "Contact" WHERE $1 = Contact.id', [request.params.id], function(err, result) {
+        var data1 = {firstname: request.body.firstname};  
+        done();
+         if (err){ 
+            console.error(err); response.json({success:"false", message: err}); 
+         }
+         else{  
+         client.query('UPDATE "Contact" SET name=($1) WHERE id=($2)', [data1.firstname], [request.params.id]);
+            response.json({success:"true", data: result.rows} ); 
+         }
     });
-
-}); */
+  });
+});
 
 
 
