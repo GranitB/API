@@ -42,10 +42,10 @@ apiRoutes.get('/db', function(request, response){
 		client.query('SELECT * FROM Contact;', function(err, result) {
 			done();
 			 if (err){ 
-				console.error(err); response.json({success:"false", message: err}); 
+				console.error(err); response.json({success:"No data", message: err}); 
 			 }
 			 else{ 
-				response.json({success: "true", data: result.rows} ); 
+				response.json({success: "Read data with success", data: result.rows} ); 
 			 }
 		});
 	});
@@ -62,7 +62,7 @@ apiRoutes.get('/db/:id', function(request, response){
 				console.error(err); response.json({success:"false", message: err}); 
 			 }
 			 else{ 
-				response.json({success: "true", data: result.rows} ); 
+				response.json({success: "Read data with id", data: result.rows} ); 
 			 }
 		});
 	});
@@ -84,7 +84,7 @@ apiRoutes.post('/db', function(request, response){
              }
              else{     
              
-                response.json({success:"true", data: result.rows } );
+                response.json({success:"Created data with success", data: result.rows } );
              }
         });
     });
@@ -106,7 +106,7 @@ apiRoutes.delete('/db', function(request, response){
              }
              else{     
 			 
-                response.json({success:"true", data: result.rows} ); 
+                response.json({success:"Deleted with id body", data: result.rows} ); 
              }
         });
     });
@@ -126,33 +126,13 @@ apiRoutes.delete('/db/:id', function(request, response){
              }
              else{     
 			 
-                response.json({success:"true", data: result.rows} ); 
+                response.json({success:"Deteled data with id", data: result.rows} ); 
              }
         });
     });
 });
 
 
-
-//DELETE ALL DATA
-apiRoutes.delete('/db/deleteall', function(request, response){
-    pg.connect(process.env.DATABASE_URL, function(err, client, done) {
-            
-		//Delete from database		 
-        client.query("DELETE FROM Contact;"); 
-		//Display after deleted
-        client.query('SELECT * FROM Contact;', function(err, result) {
-            done();
-			
-             if (err){ 
-                console.error(err); response.json({success:"false", message: err}); 
-             }
-             else{
-                response.json({success:"true", data: result.rows} ); 
-             }
-        });
-    });
-});
 
 
 //UPDATE
@@ -169,7 +149,7 @@ apiRoutes.put('/db', function(request, response){
                 console.error(err); response.json({success:"false", message: err}); 
              }
              else{
-                response.json({success:"true", data: result.rows} ); 
+                response.json({success:"Successfuly Updated", data: result.rows} ); 
              }
         });
     });
