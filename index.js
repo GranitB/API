@@ -68,7 +68,7 @@ apiRoutes.get('/db/:id', function(request, response){
 	});
 });
 
-
+/* 
 //CREATE
 apiRoutes.post('/db', function(request, response){ 
     pg.connect(process.env.DATABASE_URL, function(err, client, done) {
@@ -156,6 +156,8 @@ apiRoutes.delete('/db/deleteall', function(request, response){
  */
 
 //UPDATE
+
+/*
 apiRoutes.put('/db', function(request, response){ 
     pg.connect(process.env.DATABASE_URL, function(err, client, done) {
         
@@ -175,7 +177,7 @@ apiRoutes.put('/db', function(request, response){
     });
 });
 
-
+ */
 app.get('/hello', function(request, response) {
 	response.send('<h2>Hello World!!</h2>');
 });
