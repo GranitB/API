@@ -81,20 +81,35 @@ apiRoutes.get('/db', function(request, response){
 	});
 });
 
+apiRoutes.get('/db/:id', function(request, response){
+	pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+		client.query('SELECT * FROM test WHERE $1 = test.id', function(err, result) {
+			done();
+			 if (err){ 
+				console.error(err); response.json({success:"false",message: err}); 
+			 }
+			 else{ 
+				response.json({success:"true",data: result.rows} ); 
+			 }
+		});
+	});
+});
+
+
 
 apiRoutes.put('/db/:id', function(request, response){
   pg.connect(process.env.DATABASE_URL, function(err, client, done) {
-	   var data1 = {firstname: request.body.firstname};  
-         client.query('UPDATE "Contact" SET name=($1) WHERE id=($2)', [data1.firstname], [request.params.id]);
-    client.query('SELECT * FROM "Contact" WHERE $1 = Contact.id', [request.params.id], function(err, result) {
-       
-        done();
+    client.query('SELECT * FROM test WHERE $1 = test.id', [request.params.id], function(err, result) {
+        var data1 = {firstname: request.body.name};  
+        
          if (err){ 
             console.error(err); response.json({success:"false", message: err}); 
          }
          else{  
+         client.query('UPDATE test SET name=($1) WHERE id=($2)', [data1.name], [request.params.id]);
             response.json({success:"true", data: result.rows} ); 
          }
+		 done();
     });
   });
 });
