@@ -29,10 +29,10 @@ app.set('port', (process.env.PORT || 5000));
 
 app.use('/api', apiRoutes );
 
-app.use(express.static(__dirfirstname + '/public'));
+app.use(express.static(__dirname + '/public'));
 
 // views is directory for all template files
-app.set('views', __dirfirstname + '/views');
+app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
 
@@ -52,7 +52,7 @@ apiRoutes.get('/db', function(request, response){
 });
 
 
-/* 
+
 //READ with ID
 apiRoutes.get('/db/:id', function(request, response){
 	pg.connect(process.env.DATABASE_URL, function(err, client, done) {		
@@ -73,9 +73,9 @@ apiRoutes.get('/db/:id', function(request, response){
 apiRoutes.post('/db', function(request, response){ 
     pg.connect(process.env.DATABASE_URL, function(err, client, done) {
         
-        var data1 = {firstname: request.body.firstname, lastname: request.body.lastname, address: request.body.address, phonenumber: request.body.phonenumber, email: request.body.email};  
+        var data1 = {name: request.body.name, lastname: request.body.lastname, address: request.body.address, phonenumber: request.body.phonenumber, email: request.body.email};  
 			//Insert into database
-        client.query("INSERT INTO contact(firstname, lastname, address, phonenumber, email) VALUES($1, $2, $3, $4, $5);", [data1.firstname, data1.lastname, data1.address, data1.phonenumber, data1.email]);
+        client.query("INSERT INTO contact(name, lastname, address, phonenumber, email) VALUES($1, $2, $3, $4, $5);", [data1.name, data1.lastname, data1.address, data1.phonenumber, data1.email]);
 			//Display after inserted
         client.query('SELECT * FROM contact;', function(err, result) {
             done();
@@ -134,7 +134,7 @@ apiRoutes.delete('/db/:id', function(request, response){
 
 
 
-/* //DELETE ALL DATA
+//DELETE ALL DATA
 apiRoutes.delete('/db/deleteall', function(request, response){
     pg.connect(process.env.DATABASE_URL, function(err, client, done) {
             
@@ -153,17 +153,15 @@ apiRoutes.delete('/db/deleteall', function(request, response){
         });
     });
 });
- */
+
 
 //UPDATE
-
-/*
 apiRoutes.put('/db', function(request, response){ 
     pg.connect(process.env.DATABASE_URL, function(err, client, done) {
         
-        var data1 = {id: request.body.id, firstname: request.body.firstname, lastname: request.body.lastname, address: request.body.address, phonenumber: request.body.phonenumber, email: request.body.email};   
+        var data1 = {id: request.body.id, name: request.body.name, lastname: request.body.lastname, address: request.body.address, phonenumber: request.body.phonenumber, email: request.body.email};   
 			//Update data in the database
-        client.query("UPDATE Contact SET firstname = $1, lastname = $2, address = $3, phonenumber = $4, email = $5 WHERE id = $6", [data1.firstname, data1.lastname, data1.address, data1.phonenumber, data1.email, data1.id]);
+        client.query("UPDATE Contact SET name = $1, lastname = $2, address = $3, phonenumber = $4, email = $5 WHERE id = $6", [data1.name, data1.lastname, data1.address, data1.phonenumber, data1.email, data1.id]);
 			//Display after updated
         client.query('SELECT * FROM Contact;', function(err, result) {
             done();
@@ -177,7 +175,7 @@ apiRoutes.put('/db', function(request, response){
     });
 });
 
- */
+
 app.get('/hello', function(request, response) {
 	response.send('<h2>Hello World!!</h2>');
 });
