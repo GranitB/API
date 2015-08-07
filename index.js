@@ -106,7 +106,7 @@ apiRoutes.put('/db/:id', function(request, response){
             console.error(err); response.json({success:"false", message: err}); 
          }
          else{  
-		 pg.connect(process.env.DATABASE_URL),function(err,client,done){
+	//	 pg.connect(process.env.DATABASE_URL),function(err,client,done){
          client.query('UPDATE test SET name=($1) WHERE id=($2)', [data1.name], [request.params.id]);
             response.json({success:"true", data: result.rows} ); 
 			done();
