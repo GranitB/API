@@ -69,7 +69,7 @@ app.set('view engine', 'ejs');
 //test for CRUD Json
 apiRoutes.get('/db', function(request, response){
 	pg.connect(process.env.DATABASE_URL, function(err, client, done) {
-		client.query('SELECT * FROM "Contact"', function(err, result) {
+		client.query('SELECT * FROM test', function(err, result) {
 			done();
 			 if (err){ 
 				console.error(err); response.json({success:"false",message: err}); 
