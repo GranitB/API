@@ -52,7 +52,7 @@ apiRoutes.get('/db', function(request, response){
 });
 
 
-
+/* 
 //READ with ID
 apiRoutes.get('/db/:id', function(request, response){
 	pg.connect(process.env.DATABASE_URL, function(err, client, done) {		
@@ -68,7 +68,7 @@ apiRoutes.get('/db/:id', function(request, response){
 	});
 });
 
-/* 
+
 //CREATE
 apiRoutes.post('/db', function(request, response){ 
     pg.connect(process.env.DATABASE_URL, function(err, client, done) {
