@@ -101,7 +101,7 @@ apiRoutes.put('/db/:id', function(request, response){
   pg.connect(process.env.DATABASE_URL, function(err, client, done) {
     client.query('SELECT * FROM test WHERE $1 = test.id', [request.params.id], function(err, result) {
         var data1 = {name: request.body.name};  
-        done();
+        //done();
          if (err){ 
             console.error(err); response.json({success:"false", message: err}); 
          }
@@ -113,6 +113,7 @@ apiRoutes.put('/db/:id', function(request, response){
          }
 		 
 		 }
+		 done();
 		 
     });
   });
