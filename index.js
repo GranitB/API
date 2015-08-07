@@ -2,53 +2,23 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var pg = require('pg');
+var connectionString = process.env.DATABASE_URL;
 
+
+var client = new pg.Client(connectionString);
+//var query = client.query('CREATE TABLE items(id SERIAL PRIMARY KEY, text VARCHAR(40) not null, complete BOOLEAN)');
+client.connect();
 
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json({ type: 'application/json' }));
-//app.use(express.bodyParser());
+
 
 var apiRoutes = express.Router();
 
 var contactRouter = express.Router();
 
-
-/*
-contactRouter.get('/', function (req, res) {});
-contactRouter.get('/:id', function(req, res) {});
-contactRouter.post('/', function(req, res){});
-contactRouter.patch('/:id', function(req, res){});
-contactRouter.delete('/:id', function(req, res){});
-app.use('/contact', contactRouter);
-*/
-
 module.exports = app;
-/*
-function lookupPhoto(req, res, next){
-	var contactId = req.params.id;
-	
-	var sql = 'SELECT * FROM test WHERE id = ?';
-	postgres.client.query(sql, [contactId], function(err, results){
-		if(err){
-			console.error(err);
-			res.statusCode = 500;
-			return res.json({errors: ['Could not retrive contact']});
-		}
-	if(results.rows.length === 0) {
-		res.statusCode = 400;
-		return res.json({errors: ['Contact not found']});
-	}
-	req.contact = results.rows[0];
-	next();
-	});
-}
-
-contactRouter.get('/id', lookupPhoto, function(req, res){
-	res.json(req.contact);
-})
-*/
-
 
 
 apiRoutes.get('/', function(req, res){
@@ -59,69 +29,151 @@ app.set('port', (process.env.PORT || 5000));
 
 app.use('/api', apiRoutes );
 
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirfirstname + '/public'));
 
 // views is directory for all template files
-app.set('views', __dirname + '/views');
+app.set('views', __dirfirstname + '/views');
 app.set('view engine', 'ejs');
-//WHERE $1 = Contact.id;', [request.params.id]
 
-//test for CRUD Json
+
+//READ
 apiRoutes.get('/db', function(request, response){
-	pg.connect(process.env.DATABASE_URL, function(err, client, done) {
-		client.query('SELECT * FROM test', function(err, result) {
+	pg.connect(process.env.DATABASE_URL, function(err, client, done) {		
+		client.query('SELECT * FROM Contact;', function(err, result) {
 			done();
 			 if (err){ 
-				console.error(err); response.json({success:"false",message: err}); 
+				console.error(err); response.json({success:"false", message: err}); 
 			 }
 			 else{ 
-				response.json({success:"true",data: result.rows} ); 
+				response.json({success: "true", data: result.rows} ); 
 			 }
 		});
 	});
 });
 
+
+
+//READ with ID
 apiRoutes.get('/db/:id', function(request, response){
-	pg.connect(process.env.DATABASE_URL, function(err, client, done) {
-		client.query('SELECT * FROM test WHERE $1= test.id',[request.params.id], function(err, result) {
+	pg.connect(process.env.DATABASE_URL, function(err, client, done) {		
+		client.query('SELECT * FROM Contact WHERE $1 = Contact.id;', [request.params.id], function(err, result) {
 			done();
 			 if (err){ 
-				console.error(err); response.json({success:"false",message: err}); 
+				console.error(err); response.json({success:"false", message: err}); 
 			 }
 			 else{ 
-				response.json({success:"true",data: result.rows} ); 
+				response.json({success: "true", data: result.rows} ); 
 			 }
 		});
 	});
 });
 
 
-
-apiRoutes.put('/db/:id', function(request, response){
-  pg.connect(process.env.DATABASE_URL, functions(err, client, done) {
-    client.query('SELECT * FROM test WHERE $1 = test.id', [request.params.id], function(err, result) {
-        var data1 = {name: request.body.name};  
-		 client.query('UPDATE test SET name=($1) WHERE id=($2)', [data1.name], [request.params.id]);
-        done();
-         if (err){ 
-            console.error(err); response.json({success:"false", message: err}); 
-         }
-         else{  
-		//pg.connect(process.env.DATABASE_URL),function(err,client,done){
+//CREATE
+apiRoutes.post('/db', function(request, response){ 
+    pg.connect(process.env.DATABASE_URL, function(err, client, done) {
         
-            response.json({success:"true", data: result.rows} ); 
-			
-			
-         }
-		 
-		 
-		 }
-		// done();
-		 
+        var data1 = {firstname: request.body.firstname, lastname: request.body.lastname, address: request.body.address, phonenumber: request.body.phonenumber, email: request.body.email};  
+			//Insert into database
+        client.query("INSERT INTO contact(firstname, lastname, address, phonenumber, email) VALUES($1, $2, $3, $4, $5);", [data1.firstname, data1.lastname, data1.address, data1.phonenumber, data1.email]);
+			//Display after inserted
+        client.query('SELECT * FROM contact;', function(err, result) {
+            done();
+             if (err){ 
+                console.error(err); response.json({success:"false", message: err}); 
+             }
+             else{     
+             
+                response.json({success:"true", data: result.rows } );
+             }
+        });
     });
-  });
 });
 
+
+//DELETE with body
+apiRoutes.delete('/db', function(request, response){
+    pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+        
+        var data1 = {id: request.body.id};      
+		//Delete from database		
+        client.query("DELETE FROM Contact WHERE Contact.id = ($1)", [data1.id]);
+		//Display after deleted
+        client.query('SELECT * FROM Contact;', function(err, result) {
+            done();
+             if (err){ 
+                console.error(err); response.json({success:"false", message: err}); 
+             }
+             else{     
+			 
+                response.json({success:"true", data: result.rows} ); 
+             }
+        });
+    });
+});
+
+//DELETE with ID
+apiRoutes.delete('/db/:id', function(request, response){
+    pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+            
+		//Delete from database		
+        client.query("DELETE FROM Contact WHERE Contact.id = ($1)", [request.params.id]);
+		//Display after deleted
+        client.query('SELECT * FROM Contact;', function(err, result) {
+            done();
+             if (err){ 
+                console.error(err); response.json({success:"false", message: err}); 
+             }
+             else{     
+			 
+                response.json({success:"true", data: result.rows} ); 
+             }
+        });
+    });
+});
+
+
+
+/* //DELETE ALL DATA
+apiRoutes.delete('/db/deleteall', function(request, response){
+    pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+            
+		//Delete from database		 
+        client.query("DELETE FROM Contact;"); 
+		//Display after deleted
+        client.query('SELECT * FROM Contact;', function(err, result) {
+            done();
+			
+             if (err){ 
+                console.error(err); response.json({success:"false", message: err}); 
+             }
+             else{
+                response.json({success:"true", data: result.rows} ); 
+             }
+        });
+    });
+});
+ */
+
+//UPDATE
+apiRoutes.put('/db', function(request, response){ 
+    pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+        
+        var data1 = {id: request.body.id, firstname: request.body.firstname, lastname: request.body.lastname, address: request.body.address, phonenumber: request.body.phonenumber, email: request.body.email};   
+			//Update data in the database
+        client.query("UPDATE Contact SET firstname = $1, lastname = $2, address = $3, phonenumber = $4, email = $5 WHERE id = $6", [data1.firstname, data1.lastname, data1.address, data1.phonenumber, data1.email, data1.id]);
+			//Display after updated
+        client.query('SELECT * FROM Contact;', function(err, result) {
+            done();
+             if (err){ 
+                console.error(err); response.json({success:"false", message: err}); 
+             }
+             else{
+                response.json({success:"true", data: result.rows} ); 
+             }
+        });
+    });
+});
 
 
 app.get('/hello', function(request, response) {
@@ -131,4 +183,3 @@ app.get('/hello', function(request, response) {
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port:', app.get('port'));
 });
-
