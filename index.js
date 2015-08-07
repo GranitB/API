@@ -110,6 +110,8 @@ apiRoutes.put('/db/:id', function(request, response){
 		//pg.connect(process.env.DATABASE_URL),function(err,client,done){
         
             response.json({success:"true", data: result.rows} ); 
+			
+			
 			done();
          }
 		 
