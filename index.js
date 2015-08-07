@@ -67,7 +67,7 @@ app.set('view engine', 'ejs');
 //WHERE $1 = Contact.id;', [request.params.id]
 
 //test for CRUD Json
-apiRoutes.get('/db3', function(request, response){
+apiRoutes.get('/db', function(request, response){
 	pg.connect(process.env.DATABASE_URL, function(err, client, done) {
 		client.query('SELECT * FROM "Contact"', function(err, result) {
 			done();
@@ -84,14 +84,15 @@ apiRoutes.get('/db3', function(request, response){
 
 apiRoutes.put('/db/:id', function(request, response){
   pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+	   var data1 = {firstname: request.body.firstname};  
+         client.query('UPDATE "Contact" SET name=($1) WHERE id=($2)', [data1.firstname], [request.params.id]);
     client.query('SELECT * FROM "Contact" WHERE $1 = Contact.id', [request.params.id], function(err, result) {
-        var data1 = {firstname: request.body.firstname};  
+       
         done();
          if (err){ 
             console.error(err); response.json({success:"false", message: err}); 
          }
          else{  
-         client.query('UPDATE "Contact" SET name=($1) WHERE id=($2)', [data1.firstname], [request.params.id]);
             response.json({success:"true", data: result.rows} ); 
          }
     });
