@@ -37,7 +37,7 @@ app.set('view engine', 'ejs');
 
 
 //READ
-apiRoutes.get('/db', function(request, response){
+apiRoutes.get('/contact', function(request, response){
 	pg.connect(process.env.DATABASE_URL, function(err, client, done) {		
 		client.query('SELECT * FROM Contact;', function(err, result) {
 			done();
@@ -54,7 +54,7 @@ apiRoutes.get('/db', function(request, response){
 
 
 //READ with ID
-apiRoutes.get('/db/:id', function(request, response){
+apiRoutes.get('/contact/:id', function(request, response){
 	pg.connect(process.env.DATABASE_URL, function(err, client, done) {		
 		client.query('SELECT * FROM Contact WHERE $1 = Contact.id;', [request.params.id], function(err, result) {
 			done();
@@ -70,7 +70,7 @@ apiRoutes.get('/db/:id', function(request, response){
 
 
 //CREATE
-apiRoutes.post('/db', function(request, response){ 
+apiRoutes.post('/contact', function(request, response){ 
     pg.connect(process.env.DATABASE_URL, function(err, client, done) {
         
         var data1 = {name: request.body.name, lastname: request.body.lastname, address: request.body.address, phonenumber: request.body.phonenumber, email: request.body.email};  
@@ -92,7 +92,7 @@ apiRoutes.post('/db', function(request, response){
 
 
 //DELETE with body
-apiRoutes.delete('/db', function(request, response){
+apiRoutes.delete('/contact', function(request, response){
     pg.connect(process.env.DATABASE_URL, function(err, client, done) {
         
         var data1 = {id: request.body.id};      
@@ -113,7 +113,7 @@ apiRoutes.delete('/db', function(request, response){
 });
 
 //DELETE with ID
-apiRoutes.delete('/db/:id', function(request, response){
+apiRoutes.delete('/contact/:id', function(request, response){
     pg.connect(process.env.DATABASE_URL, function(err, client, done) {
             
 		//Delete from database		
@@ -136,7 +136,7 @@ apiRoutes.delete('/db/:id', function(request, response){
 
 
 //UPDATE
-apiRoutes.put('/db', function(request, response){ 
+apiRoutes.put('/contact', function(request, response){ 
     pg.connect(process.env.DATABASE_URL, function(err, client, done) {
         
         var data1 = {id: request.body.id, name: request.body.name, lastname: request.body.lastname, address: request.body.address, phonenumber: request.body.phonenumber, email: request.body.email};   
