@@ -142,22 +142,22 @@ apiRoutes.put('/contact', function(request, response){
         
         var data1 = {id: request.body.id, name: request.body.name, lastname: request.body.lastname, address: request.body.address, phonenumber: request.body.phonenumber, email: request.body.email};   
 			//Update data in the database
-			var count = client.query('select exists(select * from Contact where id=$1);'[request.body.id])
-			if ( count == false ){
-				console.error(err); response.json({success:"false", message: err})
-			}
-			else {
+			
         client.query("UPDATE Contact SET name = $1, lastname = $2, address = $3, phonenumber = $4, email = $5 WHERE id = $6", [data1.name, data1.lastname, data1.address, data1.phonenumber, data1.email, data1.id]);
 			//Display after updated
         client.query('SELECT * FROM Contact WHERE Contact.id = $1;', [request.body.id] , function(err, result) {
             done();
+			var count = client.query('select exists(select * from Contact where id=$1);'[request.body.id])
+			if ( count == false ){
+				console.error(err); response.json({success:"false", message: err})
+			}
 			
              if (err ){ 
                 console.error(err); response.json({success:"false", message: err}); 
              }
              else{
                 response.json({success:"Successfuly Updated", data: result.rows} ); 
-             }}
+             }
         });
     });
 });
