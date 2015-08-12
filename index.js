@@ -136,26 +136,37 @@ apiRoutes.delete('/contact/:id', function(request, response){
 
 
 
-//UPDATE
-apiRoutes.put('/contact', function(request, response){ 
-    pg.connect(process.env.DATABASE_URL, function(err, client, done) {
-        
-        var data1 = {id: request.body.id, name: request.body.name, lastname: request.body.lastname, address: request.body.address, phonenumber: request.body.phonenumber, email: request.body.email};   
-			//Update data in the database
-        client.query("UPDATE Contact SET name = $1, lastname = $2, address = $3, phonenumber = $4, email = $5 WHERE id = $6", [data1.name, data1.lastname, data1.address, data1.phonenumber, data1.email, data1.id]);
-			//Display after updated
-        client.query('SELECT * FROM Contact WHERE Contact.id = $1;', [request.body.id] , function(err, result) {
-            done();
-			if ( response.rows.length !=0){
-             
-                response.json({success:"Successfuly Updated", data: result.rows} ); 
-             
-			 }
-			 else {
-				 response.status(404).send(error:"Conctact with that id not found ");
-			 }
-        });
-    });
+//UPDATE origjinal
+apiRoutes.put('/db', function(request, response){ 
+   pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+       
+       var data1 = {id: request.body.id, name: request.body.name, lastname: request.body.lastname, address: request.body.address, phonenumber: request.body.phonenumber, email: request.body.email};   
+            //Update data in the database
+       client.query("UPDATE Contact SET name = $1, lastname = $2, address = $3, phonenumber = $4, email = $5 WHERE id = $6", [data1.name, data1.lastname, data1.address, data1.phonenumber, data1.email, data1.id]);
+            //Display after updated
+       client.query('SELECT * FROM Contact WHERE Contact.id = $1;', [request.body.id], function(err, result) {
+        //    client.query('ALTER TABLE Contact ALTER COLUMN phonenumber TEXT', function(err, result) {
+           done();
+              
+            if(result.rows.length != 0){
+                 if (err){ 
+                    console.error(err); response.json({success:"false", message: err}); 
+                 }
+                 else{
+                    response.json({success:"Contact updated successfuly in the database.", data: result.rows} ); 
+                }
+            }else{
+                 if (err){ 
+               console.error(err); response.json({success:"false", message: err}); 
+                }
+                else{
+                response.status(404).send({error: "Contact doesnt exist to update"});
+               //    response.json({failed:"Contact doesnt exist to update."} ); 
+                }
+            }
+            
+       });
+   });
 });
 
 
