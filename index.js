@@ -143,7 +143,7 @@ apiRoutes.put('/contact', function(request, response){
         var data1 = {id: request.body.id, name: request.body.name, lastname: request.body.lastname, address: request.body.address, phonenumber: request.body.phonenumber, email: request.body.email};   
 			//Update data in the database
 		
-		var number = data1.phonenumber;
+	//	var number = data1.phonenumber;
 		
 		
         client.query("UPDATE Contact SET name = $1, lastname = $2, address = $3, phonenumber = $4, email = $5 WHERE id = $6", [data1.name, data1.lastname, data1.address, data1.phonenumber, data1.email, data1.id]);
