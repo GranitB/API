@@ -156,7 +156,7 @@ apiRoutes.put('/contact', function(request, response){
 			 else {
 				 response.status(400).send(error:"Contact does not excist on database");
 			 }
-			 }
+			 
         });
     });
 });
