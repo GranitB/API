@@ -142,8 +142,8 @@ apiRoutes.put('/contact', function(request, response){
         
         var data1 = {id: request.body.id, name: request.body.name, lastname: request.body.lastname, address: request.body.address, phonenumber: request.body.phonenumber, email: request.body.email};   
 			//Update data in the database
-			var count = client.query('select count(*) from Contact Where Contact.id = $1;'[request.body.id])
-			if ( count ==0 ){
+			var count = client.query('select exists(select * from Contact where id=$1);'[request.body.id])
+			if ( count == false ){
 				console.error(err); response.json({success:"false", message: err})
 			}
 			else {
