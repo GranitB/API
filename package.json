@@ -13,7 +13,10 @@
     "pg": "^4.4.1",
     "serve-favicon": "*"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "supersamples": "^0.4.1",
+    "supertest": "^1.0.1"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node App.js"
