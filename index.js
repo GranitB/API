@@ -152,12 +152,12 @@ apiRoutes.put('/contact', function(request, response){
 				console.error(err); response.json({success:"false", message: err})
 			}
 			
-             if (err ){ 
-                console.error(err); response.json({success:"false", message: err}); 
-             }
-             else{
-                response.json({success:"Successfuly Updated", data: result.rows} ); 
-             }
+            // if (err ){ 
+            //    console.error(err); response.json({success:"false", message: err}); 
+             //}
+             //else{
+               // response.json({success:"Successfuly Updated", data: result.rows} ); 
+             //}
         });
     });
 });
