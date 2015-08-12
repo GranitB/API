@@ -147,17 +147,17 @@ apiRoutes.put('/contact', function(request, response){
 			//Display after updated
         client.query('SELECT * FROM Contact WHERE Contact.id = $1;', [request.body.id] , function(err, result) {
             done();
-			var count = client.query('select exists(select * from Contact where id=$1);'[request.body.id])
+			var count = client.query('select exists(select 1 from Contact where id=$1);'[request.body.id])
 			if ( count == false ){
 				console.error(err); response.json({success:"false", message: err})
 			}
 			
-            // if (err ){ 
-            //    console.error(err); response.json({success:"false", message: err}); 
-             //}
-             //else{
-               // response.json({success:"Successfuly Updated", data: result.rows} ); 
-             //}
+             if (err ){ 
+                console.error(err); response.json({success:"false", message: err}); 
+             }
+             else{
+                response.json({success:"Successfuly Updated", data: result.rows} ); 
+             }
         });
     });
 });
