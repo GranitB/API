@@ -146,12 +146,14 @@ apiRoutes.put('/contact', function(request, response){
 			//Display after updated
         client.query('SELECT * FROM Contact WHERE Contact.id = $1;', [request.body.id] , function(err, result) {
             done();
-             if (err){ 
-                console.error(err); response.json({success:"false", message: err}); 
-             }
-             else{
+			if ( response.rows.length !=0){
+             
                 response.json({success:"Successfuly Updated", data: result.rows} ); 
-             }
+             
+			 }
+			 else {
+				 response.status(404).send(error:"Conctact with that id not found ");
+			 }
         });
     });
 });
