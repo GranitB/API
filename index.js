@@ -33,6 +33,19 @@ app.set('port', (process.env.PORT || 5000));
 app.use('/api', apiRoutes);
 
 app.use('/api', contactRouter);
+app.use('', contactRouter);
+
+apiRoutes.get('*', function(request, response){
+    pg.connect(process.env.DATABASE_URL, function(err, client, done){
+        if (err) {
+            console.error(err);
+            response.json({success: "false", message: err});
+        }
+        else {
+            response.send("Enter a valid page", 404);
+        }
+    });
+});
 
 
 
