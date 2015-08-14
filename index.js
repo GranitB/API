@@ -422,6 +422,7 @@ apiRoutes.put('/contact', function (request, response) {
 
 contactRouter.get('*', function (request, response) {
         pg.connect(process.env.DATABASE_URL, function (err, client, done) {
+            done();
                     if (err) {
                         console.error(err);
                         response.json({success: "false", message: err});
