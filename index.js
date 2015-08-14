@@ -101,7 +101,7 @@ apiRoutes.get('/contact', function (request, response) {
                  }
                  var test = (result.rows[0].phonenumber2 === "" || result.rows[0].phonenumber2 === undefined);
                  */
-                response.json({success: "Database Readed successfuly.", data: result.rows});
+                response.json({success: "Database read successfully.", data: result.rows});
             }
         });
     });
@@ -132,7 +132,7 @@ apiRoutes.get('/contact/:id', function (request, response) {
                         response.json({success: "false", message: err});
                     }
                     else {
-                        response.json({success: "A specific row readed successfuly.", data: result.rows});
+                        response.json({success: "Read data with id.", data: result.rows});
                     }
                 } else {
                     if (err) {
@@ -176,7 +176,7 @@ apiRoutes.post('/contact', function (request, response) {
                     response.json({success: "false", message: err});
                 }
                 else {
-                    response.status(300).send({failed: "Enter a valid number."});
+                    response.status(300).send({failed: "Enter a valid phonelw number."});
                 }
             }
 
@@ -187,7 +187,7 @@ apiRoutes.post('/contact', function (request, response) {
                 }
                 else {
 
-                    response.status(300).send({failed: "Enter a valid number."});
+                    response.status(300).send({failed: "Enter a valid phone number."});
                 }
             }
 
@@ -197,7 +197,7 @@ apiRoutes.post('/contact', function (request, response) {
                     response.json({success: "false", message: err});
                 }
                 else {
-                    response.status(300).send({failed: "Enter a valid number."});
+                    response.status(300).send({failed: "Enter a valid phone number."});
                 }
             }
 
@@ -207,7 +207,7 @@ apiRoutes.post('/contact', function (request, response) {
                     response.json({success: "false", message: err});
                 }
                 else {
-                    response.status(300).send({failed: "Enter a valid number."});
+                    response.status(300).send({failed: "Enter a valid phone number."});
                 }
             }
 
@@ -217,7 +217,7 @@ apiRoutes.post('/contact', function (request, response) {
                     response.json({success: "false", message: err});
                 }
                 else {
-                    response.status(300).send({failed: "Enter a valid number."});
+                    response.status(300).send({failed: "Enter a valid phone number."});
                 }
             }
 
@@ -240,7 +240,7 @@ apiRoutes.post('/contact', function (request, response) {
                     response.json({success: "false", message: err});
                 }
                 {
-                    response.json({success: "Contact inserted successfuly into database."});
+                    response.json({success: "Contact inserted successfully into database."});
                 }
             }
         });
@@ -277,7 +277,7 @@ apiRoutes.delete('/contact', function (request, response) {
                         response.json({success: "false", message: err});
                     }
                     else {
-                        response.json({success: "Contact successfuly deleted from the database."});
+                        response.json({success: "Contact successfully deleted from the database."});
                     }
                 } else {
                     if (err) {
@@ -373,7 +373,7 @@ apiRoutes.put('/contact', function (request, response) {
                             response.json({success: "false", message: err});
                         }
                         else {
-                            response.status(300).send({failed: "Enter a valid number."});
+                            response.status(300).send({failed: "Enter a valid phone number."});
                         }
                     }
 
@@ -383,7 +383,7 @@ apiRoutes.put('/contact', function (request, response) {
                             response.json({success: "false", message: err});
                         }
                         else {
-                            response.status(300).send({failed: "Enter a valid number."});
+                            response.status(300).send({failed: "Enter a valid phone number."});
                         }
                     }
 
@@ -393,7 +393,7 @@ apiRoutes.put('/contact', function (request, response) {
                             response.json({success: "false", message: err});
                         }
                         else {
-                            response.status(300).send({failed: "Enter a valid number."});
+                            response.status(300).send({failed: "Enter a valid phone number."});
                         }
                     }
 
@@ -403,7 +403,7 @@ apiRoutes.put('/contact', function (request, response) {
                             response.json({success: "false", message: err});
                         }
                         else {
-                            response.status(300).send({failed: "Enter a valid number."});
+                            response.status(300).send({failed: "Enter a valid phone number."});
                         }
                     }
 
@@ -413,7 +413,7 @@ apiRoutes.put('/contact', function (request, response) {
                             response.json({success: "false", message: err});
                         }
                         else {
-                            response.status(300).send({failed: "Enter a valid number."});
+                            response.status(300).send({failed: "Enter a valid phone number."});
                         }
                     }
 
@@ -426,7 +426,7 @@ apiRoutes.put('/contact', function (request, response) {
                             response.json({success: "false", message: err});
                         }
                         else {
-                            response.status(300).send({failed: "Enter a valid number."});
+                            response.status(300).send({failed: "Enter a valid phone number."});
                         }
                     }
 
@@ -438,7 +438,7 @@ apiRoutes.put('/contact', function (request, response) {
                         response.json({success: "false", message: err});
                     }
                     else {
-                        response.json({success: "Contact updated successfuly in the database."});
+                        response.json({success: "Contact updated successfully in the database."});
                     }
                 } else {
                     if (err) {
@@ -446,7 +446,7 @@ apiRoutes.put('/contact', function (request, response) {
                         response.json({success: "false", message: err});
                     }
                     else {
-                        response.status(406).send({error: "Contact doesnt exist to update."});
+                        response.status(406).send({error: "Contact doesn't exist to update."});
                     }
                 }
             });
