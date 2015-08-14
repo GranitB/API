@@ -32,13 +32,14 @@ app.set('port', (process.env.PORT || 5000));
 
 app.use('/api', apiRoutes);
 
+app.use('', contactRouter);
 app.use(express.static(__dirname + '/public'));
 
 // views is directory for all template files
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
-apiRoutes.get('*', function(request, response){
+contactRouter.get('*', function(request, response){
     pg.connect(process.env.DATABASE_URL, function(err, client, done){
         if (err) {
             console.error(err);
