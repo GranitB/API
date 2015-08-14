@@ -17,6 +17,7 @@ var apiRoutes = express.Router();
 
 var contactRouter = express.Router();
 
+var routerforpages = express.Router();
 
 module.exports = app;
 
@@ -33,9 +34,9 @@ app.set('port', (process.env.PORT || 5000));
 app.use('/api', apiRoutes);
 
 app.use('/api', contactRouter);
-app.use('', contactRouter);
+app.use('', routerforpages);
 
-apiRoutes.get('*', function(request, response){
+routerforpages.get('*', function(request, response){
     pg.connect(process.env.DATABASE_URL, function(err, client, done){
         if (err) {
             console.error(err);
