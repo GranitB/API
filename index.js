@@ -38,7 +38,7 @@ app.use(express.static(__dirname + '/public'));
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
-contactRouter.get('*', function(request, response){
+apiRoutes.get('*', function(request, response){
     pg.connect(process.env.DATABASE_URL, function(err, client, done){
         if (err) {
             console.error(err);
