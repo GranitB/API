@@ -21,6 +21,20 @@ var contactRouter = express.Router();
 module.exports = app;
 
 
+contactRouter.get('*', function(request, response){
+    pg.connect(process.env.DATABASE_URL, function(err, client, done){
+        if (err) {
+            console.error(err);
+            response.json({success: "false", message: err});
+        }
+        else {
+            response.send("Enter a valid API.", 404);
+        }
+    });
+});
+
+
+
 apiRoutes.get('/', function (req, res) {
     res.json({message: 'Hello World'});
 });
@@ -420,17 +434,6 @@ apiRoutes.put('/contact', function (request, response) {
     });
 });
 
-contactRouter.get('*', function(request, response){
-    pg.connect(process.env.DATABASE_URL, function(err, client, done){
-        if (err) {
-            console.error(err);
-            response.json({success: "false", message: err});
-        }
-        else {
-            response.send("Enter a valid API.", 404);
-        }
-    });
-});
 
 app.get('/hello', function (request, response) {
     response.send('<h2>Hello World!!</h2>');
