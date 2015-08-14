@@ -21,8 +21,8 @@ var contactRouter = express.Router();
 module.exports = app;
 
 
-apiRoutes.get('*', function (req, res) {
-    res.send({error: 'No Api found'});
+apiRoutes.get('/', function (req, res) {
+    res.json({message: 'Hello World'});
 });
 
 app.set('port', (process.env.PORT || 5000));
@@ -165,33 +165,6 @@ apiRoutes.post('/contact', function (request, response) {
                 else {
                     response.status(300).send({failed: "Enter a valid number."});
                 }
-            }
-
-            if ((isNaN(bodyData.phonenumber4) || bodyData.phonenumber4 <= 0) && !(bodyData.phonenumber4 === "" || bodyData.phonenumber4 === undefined)) {
-                if (err) {
-                    console.error(err);
-                    response.json({success: "false", message: err});
-                }
-                else {
-                    response.status(300).send({failed: "Enter a valid number."});
-                }
-            }
-
-            if ((isNaN(bodyData.phonenumber5) || bodyData.phonenumber5 <= 0) && !(bodyData.phonenumber5 === "" || bodyData.phonenumber5 === undefined)) {
-                if (err) {
-                    console.error(err);
-                    response.json({success: "false", message: err});
-                }
-                else {
-                    response.status(300).send({failed: "Enter a valid number."});
-                }
-            }
-
-
-            if (bodyData.name === "" || bodyData.name === undefined) {
-                if (err) {
-                    console.error(err);
-                    response.json({success: "false", message: err});
                 }
                 {
                     response.status(405).send({failed: "Field Name is required."});
@@ -226,6 +199,33 @@ apiRoutes.delete('/contact', function (request, response) {
                 if (err) {
                     console.error(err);
                     response.json({success: "false", message: err});
+                }
+
+                if ((isNaN(bodyData.phonenumber4) || bodyData.phonenumber4 <= 0) && !(bodyData.phonenumber4 === "" || bodyData.phonenumber4 === undefined)) {
+                    if (err) {
+                        console.error(err);
+                        response.json({success: "false", message: err});
+                    }
+                    else {
+                        response.status(300).send({failed: "Enter a valid number."});
+                    }
+                }
+
+                if ((isNaN(bodyData.phonenumber5) || bodyData.phonenumber5 <= 0) && !(bodyData.phonenumber5 === "" || bodyData.phonenumber5 === undefined)) {
+                    if (err) {
+                        console.error(err);
+                        response.json({success: "false", message: err});
+                    }
+                    else {
+                        response.status(300).send({failed: "Enter a valid number."});
+                    }
+                }
+
+
+                if (bodyData.name === "" || bodyData.name === undefined) {
+                    if (err) {
+                        console.error(err);
+                        response.json({success: "false", message: err});
                 }
                 else {
                     response.status(399).send({error: "Enter a valid ID."});
@@ -419,6 +419,10 @@ apiRoutes.put('/contact', function (request, response) {
         }
     });
 });
+
+express.Router().get('*', function (request, response) {
+        response.send('<h2>Hello World!!</h2>');
+  });
 
 
 app.get('/hello', function (request, response) {
