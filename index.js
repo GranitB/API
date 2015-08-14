@@ -420,6 +420,11 @@ apiRoutes.put('/contact', function (request, response) {
     });
 });
 
+contactRouter.get('*', function(req,res){
+
+    res.send("Hellooooo");
+});
+
 
 app.get('/hello', function (request, response) {
     response.send('<h2>Hello World!!</h2>');
