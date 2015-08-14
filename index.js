@@ -32,7 +32,10 @@ app.set('port', (process.env.PORT || 5000));
 
 app.use('/api', apiRoutes);
 
-app.use('', contactRouter);
+app.use('/api', contactRouter);
+
+
+
 app.use(express.static(__dirname + '/public'));
 
 // views is directory for all template files
@@ -50,6 +53,7 @@ contactRouter.get('*', function(request, response){
         }
     });
 });
+
 
 
 //READ
