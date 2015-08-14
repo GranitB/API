@@ -420,9 +420,18 @@ apiRoutes.put('/contact', function (request, response) {
     });
 });
 
-express.Router().get('*', function (request, response) {
-        response.send('<h2>Hello World!!</h2>');
-  });
+contactRouter.get('*', function (request, response) {
+        pg.connect(process.env.DATABASE_URL, function (err, client, done) {
+                    if (err) {
+                        console.error(err);
+                        response.json({success: "false", message: err});
+                    }
+                    else {
+                        response.status(399).send({error: "Enter a valid API."});
+                    }
+                });
+            });
+
 
 
 app.get('/hello', function (request, response) {
