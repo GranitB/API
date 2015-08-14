@@ -21,8 +21,8 @@ var contactRouter = express.Router();
 module.exports = app;
 
 
-apiRoutes.get('/', function (req, res) {
-    res.json({message: 'Hello World'});
+apiRoutes.get('*', function (req, res) {
+    res.status(404).send({error: 'No Api found'});
 });
 
 app.set('port', (process.env.PORT || 5000));
