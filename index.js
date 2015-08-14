@@ -427,7 +427,7 @@ contactRouter.get('*', function (request, response) {
                         response.json({success: "false", message: err});
                     }
                     else {
-                        response.status(399).send({error: "Enter a valid API."});
+                        response.send({error: "Enter a valid API."});
                     }
                 });
             });
