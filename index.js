@@ -21,17 +21,6 @@ var contactRouter = express.Router();
 module.exports = app;
 
 
-contactRouter.get('*', function(request, response){
-    pg.connect(process.env.DATABASE_URL, function(err, client, done){
-        if (err) {
-            console.error(err);
-            response.json({success: "false", message: err});
-        }
-        else {
-            response.send("Enter a valid API.", 404);
-        }
-    });
-});
 
 
 
@@ -48,6 +37,18 @@ app.use(express.static(__dirname + '/public'));
 // views is directory for all template files
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
+
+contactRouter.get('*', function(request, response){
+    pg.connect(process.env.DATABASE_URL, function(err, client, done){
+        if (err) {
+            console.error(err);
+            response.json({success: "false", message: err});
+        }
+        else {
+            response.send("Enter a valid API.", 404);
+        }
+    });
+});
 
 
 //READ
