@@ -389,7 +389,7 @@ apiRoutes.put('/contact', function (request, response) {
                         }
                     }
 
-                    if (((isNaN(bodyData.phonenumber2)) || bodyData.phonenumber2 <= 0) //&& (bodyData.phonenumber2 === undefined)) {
+                    if (((isNaN(bodyData.phonenumber2)) || bodyData.phonenumber2 <= 0) ) {
                         if (err) {
                             console.error(err);
                             response.json({success: "false", message: err});
