@@ -1,4 +1,4 @@
-var read = function (){apiRoutes.get('/contact', function (request, response) {
+function read(request, response) {
     pg.connect(process.env.DATABASE_URL, function (err, client, done) {
         client.query('SELECT * FROM Contact;', function (err, result) {
             done();
@@ -22,8 +22,7 @@ var read = function (){apiRoutes.get('/contact', function (request, response) {
             }
         });
     });
-});
-};
+}
 
 exports.read = read;
 
