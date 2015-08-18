@@ -69,7 +69,7 @@ apiErr.get('*', function(request, response){
 
 var read = require('./read.js');
 
-read;
+read.read;
 
 //READ with ID
 apiRoutes.get('/contact/:id', function (request, response) {
