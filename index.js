@@ -229,7 +229,7 @@ apiRoutes.post('/contact', function (request, response) {
             //Insert into database
             client.query("INSERT INTO contact(name, lastname, address, email, phonenumber1, phonenumber2, phonenumber3, phonenumber4, phonenumber5) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9);", [bodyData.name, bodyData.lastname, bodyData.address, bodyData.email, bodyData.phonenumber1, bodyData.phonenumber2, bodyData.phonenumber3, bodyData.phonenumber4, bodyData.phonenumber5]);
 
-            // done();
+             done();
             if (err) {
                 console.error(err);
                 response.json({success: "false", message: err});
