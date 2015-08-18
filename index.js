@@ -69,7 +69,7 @@ apiErr.get('*', function(request, response){
 var read = require('./read.js');
 
 
-apiRoutes.get('/contact', read.read);
+apiRoutes.get('/contact', read);
 //READ with ID
 apiRoutes.get('/contact/:id', function (request, response) {
     pg.connect(process.env.DATABASE_URL, function (err, client, done) {
