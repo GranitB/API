@@ -3,6 +3,8 @@ var app = express();
 var bodyParser = require('body-parser');
 var pg = require('pg');
 var connectionString = process.env.DATABASE_URL;
+var read = require('./read');
+var reading = read.read;
 
 
 var client = new pg.Client(connectionString);
@@ -66,10 +68,9 @@ apiErr.get('*', function(request, response){
 
 
 //READ
-var read = require('./read');
 
 
-apiRoutes.get('/contact', read.read);
+apiRoutes.get('/contact', reading);
 //READ with ID
 apiRoutes.get('/contact/:id', function (request, response) {
     pg.connect(process.env.DATABASE_URL, function (err, client, done) {

@@ -1,4 +1,4 @@
- function read(request, response) {
+var read = function (request, response) {
     pg.connect(process.env.DATABASE_URL, function (err, client, done) {
         client.query('SELECT * FROM Contact;', function (err, result) {
             done();
@@ -22,7 +22,7 @@
             }
         });
     });
-}
+};
 
 exports.read = read;
 
