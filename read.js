@@ -24,5 +24,5 @@ var read = function (request, response) {
     });
 };
 
-exports.read = read;
+module.exports = read;
 
