@@ -70,7 +70,7 @@ apiErr.get('*', function(request, response){
 //READ
 
 
-apiRoutes.get('/contact', read);
+apiRoutes.get('/contact', read.read);
 //READ with ID
 apiRoutes.get('/contact/:id', function (request, response) {
     pg.connect(process.env.DATABASE_URL, function (err, client, done) {
