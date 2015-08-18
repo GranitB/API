@@ -48,10 +48,7 @@ pageErr.get('*', function(request, response){
         }
     });
 });
-/*
- var x = document.createElement('pageErr');
- x.src = 'pageErr';
- document.head.appendChild(x);*/
+
 
 
 apiErr.get('*', function(request, response){
@@ -69,41 +66,10 @@ apiErr.get('*', function(request, response){
 
 
 //READ
-apiRoutes.get('/contact', function (request, response) {
-    pg.connect(process.env.DATABASE_URL, function (err, client, done) {
-        client.query('SELECT * FROM Contact;', function (err, result) {
-            done();
-            var test = 'ramadan';
 
-            /*for(var i = 0; i < 2; i++){
-             if(i == 1 && (result.rows[0].phonenumber1 === null || result.rows[0].phonenumber1 === undefined)){
-             test += ' pajaziti';
-             delete result.rows[5].lastname;
-             delete result.rows[0].phonenumber1;
-             }
-             }*/
+var read = require('./read.js');
 
-            if (err) {
-                console.error(err);
-                response.json({success: "false", message: err});
-            }
-            else {
-                //This deletes from result all the numbers that are null
-                for(var i = 0; i < result.rows.length; i += 1){
-                    for(var k = 1; k <= 5; k += 1) {
-                        if (result.rows[i]['phonenumber' + (k)] === "" || result.rows[i]['phonenumber' + (k)] === undefined || result.rows[i]['phonenumber' + (k)] === null) {
-                            delete result.rows[i]['phonenumber' + (k)];
-                        }
-                    }
-                }
-//var test2 = isNaN(request.rows[16].phonenumber1);
-                response.json({success: "Database Readed successfuly.", data: result.rows});
-            }
-        });
-    });
-});
-
-
+read;
 
 //READ with ID
 apiRoutes.get('/contact/:id', function (request, response) {
@@ -314,7 +280,7 @@ apiRoutes.put('/contact', function (request, response) {
                     response.json({success: "false", message: err});
                 }
                 else {
-                    response.status(400).send({error: "Enter a valid ID."});
+                    response.status(405).send({failed: "Enter a valid ID"});
                 }
             });
         } else {
@@ -379,56 +345,57 @@ apiRoutes.put('/contact', function (request, response) {
                     }
 
 
-                    if (((isNaN(bodyData.phonenumber1)) || bodyData.phonenumber1 <= 0) || (bodyData.phonenumber1 === undefined) || bodyData.phonenumber1 === null) {
+                    if ((isNaN(bodyData.phonenumber1) || bodyData.phonenumber1 <= 0) && !(bodyData.phonenumber1 === "" || bodyData.phonenumber1 === undefined)) {
                         if (err) {
                             console.error(err);
                             response.json({success: "false", message: err});
                         }
                         else {
-                            response.status(406).send({failed: "Enter a valid phone-number."});
+                            response.status(408).send({failed: "Enter a valid phone-number"});
                         }
                     }
 
-                     if ((isNaN(bodyData.phonenumber2) || bodyData.phonenumber2 <= 0) && !(bodyData.phonenumber2 === "" || bodyData.phonenumber2 === undefined)) {
-            if (err) {
-                console.error(err);
-                response.json({success: "false", message: err});
-            }
-            else {
 
-                response.status(406).send({failed: "Enter a phone valid number."});
-            }
-        }
+                    if (((isNaN(bodyData.phonenumber2)) || bodyData.phonenumber2 <= 0) && !(bodyData.phonenumber2 === "" || bodyData.phonenumber2 === undefined)) {
+                        if (err) {
+                            console.error(err);
+                            response.json({success: "false", message: err});
+                        }
+                        else {
+                            response.status(408).send({failed: "Enter a valid phone-number"});
+                        }
+                    }
 
-        if ((isNaN(bodyData.phonenumber3) || bodyData.phonenumber3 <= 0) && !(bodyData.phonenumber3 === "" || bodyData.phonenumber3 === undefined)) {
-            if (err) {
-                console.error(err);
-                response.json({success: "false", message: err});
-            }
-            else {
-                response.status(406).send({failed: "Enter a phone valid number."});
-            }
-        }
+                    if (((isNaN(bodyData.phonenumber3)) || bodyData.phonenumber3 <= 0) && !(bodyData.phonenumber3 === "" || bodyData.phonenumber3 === undefined)) {
+                        if (err) {
+                            console.error(err);
+                            response.json({success: "false", message: err});
+                        }
+                        else {
+                            response.status(408).send({failed: "Enter a valid phone-number"});
+                        }
+                    }
 
-        if ((isNaN(bodyData.phonenumber4) || bodyData.phonenumber4 <= 0) && !(bodyData.phonenumber4 === "" || bodyData.phonenumber4 === undefined)) {
-            if (err) {
-                console.error(err);
-                response.json({success: "false", message: err});
-            }
-            else {
-                response.status(406).send({failed: "Enter a phone valid number."});
-            }
-        }
+                    if (((isNaN(bodyData.phonenumber4)) || bodyData.phonenumber4 <= 0) && !(bodyData.phonenumber4 === "" || bodyData.phonenumber4 === undefined)) {
+                        if (err) {
+                            console.error(err);
+                            response.json({success: "false", message: err});
+                        }
+                        else {
+                            response.status(408).send({failed: "Enter a valid phone-number"});
+                        }
+                    }
 
-        if ((isNaN(bodyData.phonenumber5) || bodyData.phonenumber5 <= 0) && !(bodyData.phonenumber5 === "" || bodyData.phonenumber5 === undefined)) {
-            if (err) {
-                console.error(err);
-                response.json({success: "false", message: err});
-            }
-            else {
-                response.status(406).send({failed: "Enter a phone valid number."});
-            }
-        }
+                    if (((isNaN(bodyData.phonenumber5)) || bodyData.phonenumber5 <= 0) && !(bodyData.phonenumber5 === "" || bodyData.phonenumber5 === undefined)) {
+                        if (err) {
+                            console.error(err);
+                            response.json({success: "false", message: err});
+                        }
+                        else {
+                            response.status(408).send({failed: "Enter a valid phone-number"});
+                        }
+                    }
+
                     //ketu behet check qe te mos behet update pa i plotsu kushtet
                     if ((bodyData.phonenumber1 >= 0 && bodyData.phonenumber1 !== null)  || (bodyData.phonenumber2 >= 0 && bodyData.phonenumber2 !== null) || (bodyData.phonenumber3 >= 0 && bodyData.phonenumber3 !== null) || (bodyData.phonenumber4 >= 0 && bodyData.phonenumber4 !== null) || (bodyData.phonenumber5 >= 0 && bodyData.phonenumber5 !== null)) {             //Update data in the database
                         client.query("UPDATE Contact SET name = $1, lastname = $2, address = $3, email = $4, phonenumber1 = $5, phonenumber2 = $6, phonenumber3 = $7, phonenumber4 = $8, phonenumber5 = $9 WHERE id = $10", [bodyData.name, bodyData.lastname, bodyData.address, bodyData.email, bodyData.phonenumber1, bodyData.phonenumber2, bodyData.phonenumber3, bodyData.phonenumber4, bodyData.phonenumber5, request.body.id]);
@@ -438,7 +405,7 @@ apiRoutes.put('/contact', function (request, response) {
                             response.json({success: "false", message: err});
                         }
                         else {
-                            response.status(406).send({failed: "Enter a valid phone-number."});
+                            response.status(408).send({failed: "Enter a valid phone-number"});
                         }
                     }
 
@@ -450,7 +417,7 @@ apiRoutes.put('/contact', function (request, response) {
                         response.json({success: "false", message: err});
                     }
                     else {
-                        response.json({success: "Contact updated successfully in the database."});
+                        response.json({success: "Contact updated successfully in the database"});
                     }
                 } else {
                     if (err) {
@@ -458,7 +425,7 @@ apiRoutes.put('/contact', function (request, response) {
                         response.json({success: "false", message: err});
                     }
                     else {
-                        response.status(404).send({error: "The specified contact could not be found"});
+                        response.status(404).send({failed: "The specified contact could not be found"});
                     }
                 }
             });
@@ -474,3 +441,4 @@ apiRoutes.get('/hello', function (request, response) {
 app.listen(app.get('port'), function () {
     console.log('Node app is running on port:', app.get('port'));
 });
+
