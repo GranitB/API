@@ -37,6 +37,7 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
 
+/*
 pageErr.get('*', function(request, response){
     pg.connect(process.env.DATABASE_URL, function(err, client, done){
         if (err) {
@@ -62,6 +63,7 @@ apiErr.get('*', function(request, response){
         }
     });
 });
+*/
 
 
 
